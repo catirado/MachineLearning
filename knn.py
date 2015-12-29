@@ -41,5 +41,4 @@ def calculate_accuracy(test_set, results):
     for x in range(len(test_set)):
         if test_set[x][-1] is results[x]:
 			correct += 1
-
     return (correct/float(len(test_set))) * 100.0
