@@ -1,9 +1,6 @@
 import math
 import operator
 
-#http://machinelearningmastery.com/tutorial-to-implement-k-nearest-neighbors-in-python-from-scratch/
-#http://insideourminds.net/python-simple-k-nearest-neighbours-classifier/
-#https://www.youtube.com/watch?v=8pTlCJX59Do
 
 def classify(train_set, test_data, k=3):
 

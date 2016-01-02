@@ -1,38 +1,58 @@
-#https://gist.github.com/iandanforth/5862470
-#http://codereview.stackexchange.com/questions/80050/k-means-clustering-algorithm-in-python
-#http://stanford.edu/~cpiech/cs221/handouts/kmeans.html
-#http://pandoricweb.tumblr.com/post/8646701677/python-implementation-of-the-k-means-clustering
+import numpy as np
+import math
 
-#centroides := lista con k instancias (arbitrarias);
-#Mientras (no se decida salir) hacer:
-#1. clusteres := lista con k listas vacias; // se corresponden 1 a 1 con los centroides
-#2. para cada t de T, calcular el indice i del centroide que menos dista a t; incluir t en el cluster de ndice i
-#3. nuevosCentroides := centroides de los nuevos clusteres [OJO] tengo que tener cuidado si llego a 0
-#4. if nuevosCentroides == centroides then salir
-#else if salir? then salir
-#else centroides := nuevosCentroides
-#finMientras
-#devolver la funcion que lleva cada t al indice i del cluster en el que aparece.
+MAX_ITERATIONS = 100
+
 
 def run(data_set, k):
-
+    iterations = 0
     centroids = []
+    old_centroids = [[] for i in range(k)]
 
     centroids = get_random_centroids(data_set, centroids, k)
-    iter = 0
-    old_centroids = None
 
-    while not has_converged(old_centroids, centroids, iter):
+    while not has_converged(old_centroids, centroids, iterations):
         old_centroids = centroids
+        iterations += 1
+        clusters = get_clusters(data_set, centroids, k)
+        centroids = calculate_new_centroids(clusters, data_set, k)
 
-        #centroids = calculate_new_centroids(data_set, labels, k)
-
-    return centroids
+    return centroids, clusters, iterations
 
 
 def has_converged(old_centroids, centroids, iterations):
-    return True
+    return (iterations > MAX_ITERATIONS) or old_centroids == centroids
 
 
-def get_random_centroids():
-    return  True
+def get_random_centroids(data_set, centroids, k):
+    for cluster in range(k):
+        centroids.append(data_set[np.random.randint(0, len(data_set), size=1)])
+    return centroids
+
+
+def get_clusters(data_set, centroids, k):
+    clusters = [[] for i in range(k)]
+    for x in data_set:
+        best = centroids.index(min(centroids, key=lambda c: euclidean_distance(x,c)))
+        clusters[best] += [x]
+    return clusters
+
+
+def calculate_new_centroids(clusters, data_set, k):
+    new_centroids = [[] for i in range(k)]
+    i = 0
+    for cluster in clusters:
+        if not cluster:
+            new_centroids[i] = data_set[np.random.randint(0, len(data_set), size=1)]
+        else:
+            new_centroids[i] = np.mean(cluster, axis=0).tolist()
+        i += 1
+
+    return new_centroids
+
+
+def euclidean_distance(x,y):
+    distance = 0
+    for i in range(len(x)):
+        distance += pow((x[i] - y[i]),2)
+    return math.sqrt(distance)

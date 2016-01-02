@@ -1,9 +1,9 @@
 @relation basketball
-@attribute asistencias_por_minuto real [0.0494, 0.3437]
-@attribute altura integer [160, 203]
-@attribute tiempo_jugado real [10.08, 40.71]
-@attribute edad integer [22, 37]
-@attribute puntos_por_minuto real [0.1593, 0.8291]
+@attribute asistencias_por_minuto real
+@attribute altura integer
+@attribute tiempo_jugado real
+@attribute edad integer
+@attribute puntos_por_minuto real
 
 @data
 0.0888, 201, 36.02, 28, 0.5885

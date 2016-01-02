@@ -2,13 +2,13 @@
 %% o no se juega en el exterior
 @relation weather
 
-%% Previsión { 0 = soleado, 1 = nublado, 2 = lluvioso } 
-@attribute previsión {0, 1, 2}
+%% Prevision { 0 = soleado, 1 = nublado, 2 = lluvioso }
+@attribute prevision {0, 1, 2}
 @attribute temperatura real
 @attribute humedad real
-%% Viento { 1 = Sí, 0 = No }
+%% Viento { 1 = Si, 0 = No }
 @attribute viento {1, 0}
-%% Jugamos { 1 = Sí, 0 = No }
+%% Jugamos { 1 = Si, 0 = No }
 @attribute jugamos {1, 0}
 
 @data
